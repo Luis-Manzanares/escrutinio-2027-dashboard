@@ -6,13 +6,13 @@
 [![CSS3](https://img.shields.io/badge/CSS3-Moderno-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/es/docs/Web/CSS)
 [![Sin Frameworks](https://img.shields.io/badge/Sin_Frameworks-Vanilla-brightgreen)](#)
 [![Accesibilidad](https://img.shields.io/badge/Accesibilidad-WCAG_AA-blueviolet)](#)
-[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub_Pages-222?logo=github)](https://enriquedev.github.io/escrutinio-2027-dashboard/)
+[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub_Pages-222?logo=github)](https://luis-manzanares.github.io/escrutinio-2027-dashboard/)
 
 ---
 
 ## 🌐 Demo en Vivo
 
-👉 **[Ver Demo en GitHub Pages](https://enriquedev.github.io/escrutinio-2027-dashboard/)**
+👉 **[Ver Demo en GitHub Pages](https://luis-manzanares.github.io/escrutinio-2027-dashboard/)**
 
 ---
 
@@ -107,7 +107,7 @@ No requiere instalación ni servidor. Es un proyecto estático puro.
 
 **1. Clonar el repositorio:**
 ```bash
-git clone https://github.com/enriquedev/escrutinio-2027-dashboard.git
+git clone https://github.com/Luis-Manzanares/escrutinio-2027-dashboard.git
 ```
 
 **2. Navegar a la carpeta:**
