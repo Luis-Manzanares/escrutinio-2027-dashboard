@@ -1,0 +1,977 @@
+/* ================================================================
+   style.css — Escrutinio 2027 | Dashboard de Digitación Masiva
+   Arquitectura: Custom Properties → Reset → Layout → Componentes
+                 → Animaciones → Media Queries → Accesibilidad
+   ================================================================ */
+
+/* ---------------------------------------------------------------
+   1. VARIABLES (Design Tokens)
+--------------------------------------------------------------- */
+:root {
+    /* Fondo y superficies — blanco institucional */
+    --bg: #eef2f7;
+    --surface: #ffffff;
+    --surface-2: #f5f7fb;
+    --surface-hover: #e8edf5;
+    --glass: rgba(0, 0, 0, 0.02);
+
+    /* Acento — azul institucional */
+    --accent: #1a5fbc;
+    --accent-dark: #144fa0;
+    --accent-gradient: linear-gradient(135deg, #144fa0 0%, #2171d4 100%);
+
+    /* Texto */
+    --text-main: #111828;
+    --text-dim: #4a5568;
+    --text-muted: #9aa5b4;
+
+    /* Bordes */
+    --border: rgba(0, 0, 0, 0.09);
+    --border-hover: rgba(0, 0, 0, 0.18);
+
+    /* Estados semánticos */
+    --status-success: #0a9e6e;
+    --status-error: #c0392b;
+    --status-warning: #b87309;
+
+    /* Radios */
+    --radius-xl: 20px;
+    --radius-m: 12px;
+    --radius-s: 8px;
+
+    /* Transición global */
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Sidebar */
+    --sidebar-w: 250px;
+    --sidebar-collapsed: 72px;
+}
+
+/* ---------------------------------------------------------------
+   2. MODO DALTÓNICO — Paleta Wong (2011)
+--------------------------------------------------------------- */
+.colorblind-mode {
+    --status-success: #0072B2;
+    --status-error: #D55E00;
+    --status-warning: #E69F00;
+    --accent: #0057a8;
+    --accent-dark: #003f82;
+    --accent-gradient: linear-gradient(135deg, #003f82 0%, #0970c8 100%);
+}
+
+/* ---------------------------------------------------------------
+   3. RESET
+--------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------
+   4. SCROLLBAR GLOBAL (Webkit + Firefox)
+--------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-hover);
+    border-radius: 99px;
+    border: 1px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-hover) transparent;
+}
+
+/* ---------------------------------------------------------------
+   5. ACCESIBILIDAD — Focus visible de alto contraste
+--------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-s);
+}
+
+/* Clase utilitaria para ocultar visualmente pero mantener legible por AT */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   6. SIDEBAR
+--------------------------------------------------------------- */
+.sidebar {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.75rem 1.25rem;
+    position: fixed;
+    inset-block: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 2.5rem;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.logo svg {
+    flex-shrink: 0;
+    /* El SVG hereda el color del stroke directamente */
+    stroke: url(#grad) var(--accent);
+}
+
+.nav-links {
+    list-style: none;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dim);
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-m);
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.nav-link:hover {
+    background: var(--glass);
+    color: var(--text-main);
+}
+
+.nav-link.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: inherit;
+    width: 18px;
+    height: 18px;
+}
+
+/* Footer del sidebar — estado de conexión */
+.sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2rem;
+    padding: 0.7rem 1rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.conn-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dot-online {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--status-success);
+    flex-shrink: 0;
+    animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------
+   7. CONTENIDO PRINCIPAL
+--------------------------------------------------------------- */
+.main-wrapper {
+    margin-left: var(--sidebar-w);
+    width: calc(100% - var(--sidebar-w));
+    padding: 2rem 2.5rem;
+    max-width: 1580px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* ---------------------------------------------------------------
+   8. HEADER
+--------------------------------------------------------------- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Buscador */
+.search-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.65rem 1.1rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 180px;
+    max-width: 420px;
+    min-width: 0;
+    transition: border-color 0.2s;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(26, 95, 188, 0.14);
+}
+
+.search-box svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    /* ≥16px previene zoom en iOS */
+    font-family: inherit;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+}
+
+/* Controles del header */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Botón modo daltónico */
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-m);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.toggle-btn:hover {
+    background: rgba(26, 95, 188, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.toggle-btn[aria-pressed="true"] {
+    background: rgba(86, 180, 233, 0.12);
+    border-color: #56B4E9;
+    color: #56B4E9;
+}
+
+/* Chip de perfil */
+.profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 0.45rem 1rem 0.45rem 0.45rem;
+    border-radius: 50px;
+    cursor: default;
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    text-align: left;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    line-height: 1.2;
+}
+
+.user-role {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+}
+
+/* ---------------------------------------------------------------
+   9. BARRA DE PROGRESO GLOBAL
+--------------------------------------------------------------- */
+.progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 1.1rem 1.5rem;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.progress-label strong {
+    font-size: 1rem;
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.progress-track {
+    background: var(--surface-hover);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: var(--fill, 0%);
+    border-radius: 99px;
+    background: var(--accent-gradient);
+    animation: grow-bar 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-origin: left;
+}
+
+/* ---------------------------------------------------------------
+   10. BENTO GRID — TARJETAS DE ESTADÍSTICAS
+--------------------------------------------------------------- */
+/* --- BENTO GRID STATS ---
+   4 columnas fijas en desktop (1 por tarjeta).
+   En tablet → 2 columnas, en móvil → 1 columna.
+*/
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.stat-card {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: var(--transition);
+    max-width: 480px;
+}
+
+.stat-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Tarjeta destacada */
+.featured-card {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer de la tarjeta destacada */
+.featured-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.07) 50%, transparent 60%);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+}
+
+.stat-icon.light {
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 1;
+}
+
+.stat-icon.warn {
+    color: var(--status-warning);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.featured-card .stat-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stat-val {
+    font-size: 2.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.featured-card .stat-val {
+    color: #fff;
+}
+
+.error-val {
+    color: var(--status-error);
+}
+
+.stat-value-group {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.stat-trend {
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin-top: 0.1rem;
+}
+
+.stat-trend.positive {
+    color: var(--status-success);
+}
+
+.stat-trend.negative {
+    color: var(--status-error);
+}
+
+.stat-subtext {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.1rem;
+}
+
+/* Punto de pulso en la tarjeta featured */
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--status-success);
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------
+   11. SECCIÓN DE TABLA
+--------------------------------------------------------------- */
+.table-area {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    min-width: 0;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.table-header h2 {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 700;
+}
+
+.table-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+/* Select de filtro */
+.filter-select {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-s);
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: var(--transition);
+    outline: none;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: var(--accent);
+}
+
+/* Botón primario */
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-s);
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.12);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+}
+
+/* Wrapper del scroll horizontal */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-hover) transparent;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 580px;
+    /* FIX CRÍTICO 320px */
+}
+
+th {
+    text-align: left;
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.875rem;
+    color: var(--text-main);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr {
+    transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+    background: var(--surface-hover);
+}
+
+/* tr[hidden] oculta filas en el filtro */
+tbody tr[hidden] {
+    display: none;
+}
+
+/* Celdas de código */
+.id-cell {
+    font-family: 'Outfit', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    white-space: nowrap;
+}
+
+/* Badges de estado */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 11px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.bg-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--status-success);
+}
+
+.bg-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--status-warning);
+}
+
+.bg-error {
+    background: rgba(244, 63, 94, 0.1);
+    color: var(--status-error);
+}
+
+/* Botón de acción en tabla */
+.action-link {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0.35rem 0.8rem;
+    border-radius: var(--radius-s);
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.action-link:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--accent);
+}
+
+/* Estado vacío */
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ---------------------------------------------------------------
+   12. ANIMACIONES
+--------------------------------------------------------------- */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    60% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.75);
+    }
+}
+
+@keyframes grow-bar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: var(--fill, 0%);
+    }
+}
+
+/* Respeta prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ---------------------------------------------------------------
+   13. MEDIA QUERIES
+--------------------------------------------------------------- */
+
+/* ── Tablet / Laptop pequeño ─────────────────────────── */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: var(--sidebar-collapsed);
+        padding: 1.75rem 0.5rem;
+    }
+
+    .logo span,
+    .nav-link span,
+    .conn-text {
+        display: none;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .logo svg {
+        flex-shrink: 0;
+    }
+
+    .nav-link {
+        justify-content: center;
+        padding: 0.7rem;
+    }
+
+    .sidebar-footer {
+        justify-content: center;
+        padding: 0.7rem 0.5rem;
+    }
+
+    .main-wrapper {
+        margin-left: var(--sidebar-collapsed);
+        width: calc(100% - var(--sidebar-collapsed));
+    }
+
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ── Tablet portrait / Móvil grande ─────────────────── */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: 60px;
+        bottom: 0;
+        top: auto;
+        inset-block: auto 0;
+        flex-direction: row;
+        align-items: center;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        padding: 0 0.5rem;
+        overflow: hidden;
+    }
+
+    .logo,
+    .sidebar-footer {
+        display: none;
+    }
+
+    .nav-links {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 0;
+    }
+
+    .nav-item {
+        width: auto;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+        padding: 1.25rem;
+        padding-bottom: 76px;
+        max-width: 100%;
+    }
+}
+
+/* ── Móvil pequeño (hasta 480px / 320px mínimo) ───────── */
+@media (max-width: 480px) {
+    .main-wrapper {
+        padding: 0.85rem;
+        padding-bottom: 76px;
+        gap: 1.25rem;
+    }
+
+    /* Header: columna */
+    header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .controls {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .profile-chip .profile-info {
+        display: none;
+    }
+
+    /* Progreso */
+    .progress-section {
+        padding: 1rem;
+    }
+
+    /* Bento: 1 columna */
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        max-width: 100%;
+    }
+
+    .stat-val {
+        font-size: 1.9rem;
+    }
+
+    /* Tabla */
+    .table-area {
+        padding: 1rem;
+    }
+
+    .table-header h2 {
+        font-size: 1rem;
+    }
+
+    th,
+    td {
+        padding: 0.75rem 0.6rem;
+    }
+
+    .status-badge {
+        font-size: 0.68rem;
+        padding: 3px 8px;
+    }
+
+    .action-link {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    /* Filtro y botón: columna */
+    .table-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
