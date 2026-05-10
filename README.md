@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📊 Escrutinio 2027 Dashboard
+# Escrutinio 2027 Dashboard
 
 **Sistema Institucional de Digitación Masiva de Actas Electorales**
 
@@ -17,7 +17,7 @@
 
 Dashboard de alto rendimiento reconstruido con tecnologías modernas para asegurar máxima velocidad, escalabilidad y accesibilidad en el proceso de digitación de actas electorales.
 
-### ✨ Características Principales
+### Características Principales
 
 - **Arquitectura React + Vite**: Interfaz modular, reactiva y ultra rápida.
 - **Tipado Estricto (TypeScript)**: Código seguro y robusto.
@@ -28,7 +28,7 @@ Dashboard de alto rendimiento reconstruido con tecnologías modernas para asegur
 
 ---
 
-### 🚀 Despliegue Local
+### Despliegue Local
 
 Para correr este proyecto en tu entorno de desarrollo:
 
