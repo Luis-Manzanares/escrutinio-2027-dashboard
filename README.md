@@ -1,73 +1,56 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 📊 Escrutinio 2027 Dashboard
 
-Currently, two official plugins are available:
+**Sistema Institucional de Digitación Masiva de Actas Electorales**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+<br>
 
-## React Compiler
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+</div>
 
-## Expanding the ESLint configuration
+<br>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Dashboard de alto rendimiento reconstruido con tecnologías modernas para asegurar máxima velocidad, escalabilidad y accesibilidad en el proceso de digitación de actas electorales.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ✨ Características Principales
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Arquitectura React + Vite**: Interfaz modular, reactiva y ultra rápida.
+- **Tipado Estricto (TypeScript)**: Código seguro y robusto.
+- **Bento Grid Layout**: Diseño asimétrico premium y elegante para las tarjetas de estadísticas.
+- **Accesibilidad Integral (WCAG AA)**: Incluye un "Modo Daltónico" funcional que adapta la paleta de colores.
+- **Iconografía Moderna**: Implementación de `lucide-react` para SVGs interactivos de alta calidad.
+- **Despliegue Continuo**: Preparado con `vercel.json` para integración y despliegue sin fallas en Vercel.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🚀 Despliegue Local
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Para correr este proyecto en tu entorno de desarrollo:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Luis-Manzanares/escrutinio-2027-dashboard.git
+   ```
+2. Entra al directorio:
+   ```bash
+   cd escrutinio-2027-dashboard
+   ```
+3. Instala todas las dependencias:
+   ```bash
+   npm install
+   ```
+4. Levanta el servidor local:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+<div align="center">
+  <i>Construido con enfoque en código limpio y rendimiento absoluto.</i>
+</div>
