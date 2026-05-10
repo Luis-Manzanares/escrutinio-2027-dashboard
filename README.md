@@ -4,6 +4,8 @@
 
 **Sistema Institucional de Digitación Masiva de Actas Electorales**
 
+[Ver Demo en Vivo en GitHub Pages](https://luis-manzanares.github.io/escrutinio-2027-dashboard/)
+
 <br>
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
